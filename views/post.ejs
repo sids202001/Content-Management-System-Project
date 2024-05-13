@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= post.title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css"> 
+</head>
+<body>
+    <a href="/dashboard">&larr; Back to Dashboard</a>
+    <h1><%= post.title %></h1>
+    <article class="article"><%= post.body %></article>
+
+    <!-- Favorite button -->
+    <form action="/api/post/<%= post._id %>/favorite" method="POST">
+        <button type="submit" style="background-color: #4CAF50; color: white; padding: 8px 16px; margin-top: 10px; border: none; cursor: pointer;">Favorite</button>
+    </form>
+
+
+    <h2>Tags</h2>
+    <ul>
+        <% if (tags && tags.length > 0) { %>
+            <% tags.forEach(function(tag) { %>
+                <li>
+                    <%= tag.name %>
+                    <!-- Delete Tag Form -->
+                    <form action="/api/post/<%= post._id %>/tags/<%= tag._id %>/delete" method="POST" style="display: inline;">
+                        <button type="submit" style="background-color: #d9534f; border: none; color: white; padding: 5px 10px;">Delete</button>
+                    </form>
+                </li>
+            <% }); %>
+        <% } else { %>
+            <li>No tags</li>
+        <% } %>
+    </ul>
+<form action="/api/post/<%= post._id %>/tags" method="POST">
+    <input type="text" name="tagName" required placeholder="Enter tag name...">
+    <button type="submit">Add Tag</button>
+</form>
+
+
+    
+    <h2>Comments</h2>
+    <ul style="list-style: none; padding: 0;">
+        <% comments.forEach(function(comment) { %>
+            <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <p style="margin-right: auto;"><%= comment.text %></p>
+                <div>
+                    <form action="/api/comments/<%= comment._id %>/put" method="POST" style="display: inline;">
+                        <input type="text" name="text" value="<%= comment.text %>" required style="margin-right: 5px;">
+                        <button type="submit" style="background-color: #f0ad4e; border: none; color: white; padding: 5px 10px;">Update</button>
+                    </form>
+                    <form action="/api/comments/<%= comment._id %>/delete" method="POST" style="display: inline;">
+                        <button type="submit" style="background-color: #d9534f; border: none; color: white; padding: 5px 10px;">Delete</button>
+                    </form>
+                </div>
+            </li>
+        <% }); %>
+    </ul>
+    
+    <form action="/api/post/<%= post._id %>/comments" method="POST">
+        <input type="text" name="text" required placeholder="Add a comment...">
+        <button type="submit">Add Comment</button>
+    </form>
+</body>
+</html>

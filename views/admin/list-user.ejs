@@ -1,0 +1,15 @@
+<a href="/dashboard">&larr; Back</a>
+<div class="admin-title">
+  <h2>Users List</h2>
+</div>
+
+<ul class="user-list">
+  <% users.forEach(function(user) { %>
+    <li>
+      <%= user.username %>
+      <form action="/delete-user/<%= user._id %>/delete" method="POST" style="display: inline;">
+        <input type="submit" value="Delete" class="btn-delete btn">
+      </form>
+    </li>
+  <% }) %>
+</ul>

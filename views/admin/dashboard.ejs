@@ -1,0 +1,74 @@
+<div class="admin-title">
+  <h2>Users List</h2>
+</div>
+
+<!-- <ul class="user-list">
+  <% users.forEach(function(user) { %>
+    <li>
+      <%= user.username %>
+      <form action="/delete-user/<%= user._id %>/DELETE" method="POST" style="display: inline;">
+        <input type="submit" value="Delete" class="btn-delete btn">
+      </form>
+    </li>
+  <% }) %>
+</ul> -->
+
+<ul class="user-list" style="list-style: none; padding: 0;">
+  <% users.forEach(function(user) { %>
+    <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <span><%= user.username %></span>
+      <form action="/delete-user/<%= user._id %>/DELETE" method="POST" style="display: inline;">
+        <input type="submit" value="Delete" class="btn-delete btn" style="margin-left: auto;">
+      </form>
+    </li>
+  <% }) %>
+</ul>
+
+
+
+
+
+<div class="admin-title">
+  <h2>Favorited Posts</h2>
+</div>
+<ul class="admin-posts">
+  <% favoritedPosts.forEach(post => { %>
+    <li>
+      <a href="/post/<%= post._id %>">
+        <%= post.title %> &nearr;
+      </a>
+      <div class="admin-post-controls">
+        <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
+        <form action="/delete-post/<%= post._id %>?_method=DELETE" method="POST">
+          <input type="submit" value="Delete" class="btn-delete btn">
+        </form>
+        <!-- Optionally, add an "Unfavorite" button if needed -->
+        <form action="/unfavorite-post/<%= post._id %>" method="POST">
+          <input type="submit" value="Unfavorite" class="btn-unfavorite btn">
+        </form>
+      </div>
+    </li>
+  <% }) %>
+</ul>
+
+<div class="admin-title">
+  <h2>All Posts</h2>
+  <a href="/add-post" class="button">+ Add New</a>
+</div>
+<ul class="admin-posts">
+  <% posts.forEach(post => { %>
+    <li>
+      <a href="/post/<%= post._id %>">
+        <%= post.title %> &nearr;
+      </a>
+      <div class="admin-post-controls">
+        <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
+        <form action="/delete-post/<%= post._id %>?_method=DELETE" method="POST">
+          <input type="submit" value="Delete" class="btn-delete btn">
+        </form>
+      </div>
+    </li>
+  <% }) %>
+</ul>
+
+
